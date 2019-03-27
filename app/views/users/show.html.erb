@@ -1,0 +1,46 @@
+<!--↑エラーメッセージ表示枠……バリデーションエラーを出す画面ではこれを追加しておくこと。-->
+<% content_for :show_msgerr do%>
+  <%= render 'layouts/form_msgerr', model_info: @user %>
+<% end %>
+<!--↑エラーメッセージ表示枠-->
+
+<!--↓タイトル表示枠-->
+<% content_for :show_head_title do%>
+  <h1 class="title_head">あなたの<%= get_tablename_by_model(@user) %>情報です。</h1>
+<% end %>
+<!--↑タイトル表示枠-->
+
+<p>
+  <strong>名前:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>メールアドレス:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>写真:</strong>
+
+  <% if @user.photo && @user.photo.url %>
+    <div class="box_picter_photo">
+    <%= image_tag(@user.photo.url ,class: "box_photo_image_content")%>
+    </div>
+  <%  else %>
+    <p>写真はまだ登録されていません。</p>
+  <%  end %>
+</p>
+
+<p>
+  <strong>パスワードのヒント:</strong>
+  <%= @user.pass_hint %>
+</p>
+
+<%= link_to "編集する", @user ,href: edit_user_path(@user.id) ,method: :get,class: "btn btn-default",disabled:false %>
+
+<%= link_to "パスワードを変更する", @user ,href: edit_password_user_path(@user.id) ,method: :get,class: "btn btn-default",disabled:false %>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

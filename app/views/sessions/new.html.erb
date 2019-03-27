@@ -1,0 +1,24 @@
+
+<!--↓タイトル表示枠-->
+<% content_for :show_head_title do%>
+  <h1 class="title_head">ログイン画面</h1>
+<% end %>
+<!--↑タイトル表示枠-->
+
+
+<%= form_with(scope: :session , url: sessions_path , local: true) do |f| %>
+
+  <div class="line_info">
+    <%= f.label "メールアドレス"  ,class: "line_content_1" %>
+    <%= f.email_field :email  ,class: "line_content_2" %>
+  </div>
+
+  <div class="line_info">
+    <%= f.label "パスワード"  ,class: "line_content_1" %>
+    <%= f.password_field :password  ,class: "line_content_2" %>
+  </div>
+
+  <div">
+    <%= f.submit "ログイン" ,class: "btn btn-default btn_next"%>
+  </div>
+<% end %>
