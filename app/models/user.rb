@@ -16,9 +16,13 @@ class User < ApplicationRecord
   validates :pass_hint,length: {maximum:40}
 
   validates :password_digest , presence: true
+
+  #パスワードのバリデーションチェックは「have_pass」時のみ
+  #……【通常の（パスワード以外を変更する）プロフィール更新ではチェックしない
   validates :password ,presence: true , length: {minimum: 2 , maxumum: 40} , on: :have_pass
 
   #「photo」には画像を保存
   mount_uploader :photo,PhotoUploader
 
+  has_many :pictures
 end

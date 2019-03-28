@@ -1,0 +1,7 @@
+<!--↓タイトル表示枠-->
+<% content_for :show_head_title do%>
+  <h1 class="title_head"><%= get_tablename_by_model(@picture) %>確認画面</h1>
+<% end %>
+<!--↑タイトル表示枠-->
+
+<%= render 'confirm_form' , picture: @picture %>

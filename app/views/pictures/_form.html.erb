@@ -1,0 +1,59 @@
+
+<!--↑エラーメッセージ表示枠……バリデーションエラーを出す画面ではこれを追加しておくこと。-->
+<% content_for :show_msgerr do%>
+  <%= render 'layouts/form_msgerr', model_info: picture %>
+<% end %>
+<!--↑エラーメッセージ表示枠-->
+
+<%= form_with(model: picture, local: true,
+              url:get_next_url_picture(picture.id)[0],
+              method:get_next_url_picture(picture.id)[1]) do |form| %>
+
+  <div class="field">
+    <%= form.label "題名" %>
+    <%= form.text_field :title, id: :picture_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label "文章" %>
+    <%= form.text_area :content, id: :picture_content %>
+  </div>
+
+  <div class="field">
+    <%= form.label "画像" %>
+    <%= form.file_field :image, id: :picture_image ,class: "input_user_info line_content_2" %>
+  </div>
+  <%= form.hidden_field :image_cache %>
+
+  <!-- 「画像を削除する」かどうかの選択……【更新時】のみ表示する -->
+  <% if ((params[:validate_err] ==nil && action_name== 'edit') || %>
+    <% (params[:validate_err] == "on" && action_name== 'edit_confirm')) %>
+
+    <p>※更新時に画像が選択されていない場合、更新前の画像が維持されます。</p>
+    <p>削除する場合は↓の「削除する」を☑してください。</p>
+
+    <%= form.check_box :remove_image ,class: "chk_picture_delimage line_content_1" %>
+    <p class="chk_picture_delimage_label">画像を削除する</p>
+  <% else %>
+    <p><%= form.hidden_field :remove_image %></p>
+  <% end %>
+
+
+  <% if form.object.image && form.object.image.url %>
+    <div class="box_picter_image">
+    <%= image_tag(form.object.image.url ,class: "box_picter_image_content")%>
+    </div>
+  <%  else %>
+    <% if not(action_name== 'new') %>
+
+      <div class="line_info">
+        <%= form.label "…………登録画像無し。" ,class: "label_user_info line_content_1" %>
+      </div>
+    <%  end %>
+  <%  end %>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
