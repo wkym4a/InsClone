@@ -61,7 +61,6 @@ class PicturesController < ApplicationController
     @picture = Picture.new(picture_params)
     @picture.user_id=current_user.id
 
-    binding.pry
     respond_to do |format|
       if @picture.save
 
@@ -84,7 +83,6 @@ class PicturesController < ApplicationController
       #「dup」をつけて値を渡すことで「@picture」との連動を切断する（別のインスタンスを作成する）
       picture_old = @picture.dup
 
-          binding.pry
       if @picture.update(picture_params)==true
 
         #投稿編集した旨のメールを送る
