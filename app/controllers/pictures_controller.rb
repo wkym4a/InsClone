@@ -61,8 +61,12 @@ class PicturesController < ApplicationController
     @picture = Picture.new(picture_params)
     @picture.user_id=current_user.id
 
+    binding.pry
     respond_to do |format|
       if @picture.save
+
+        #新規投稿した旨のメールを送る
+        PostedMailer.posted_mail_new(@picture).deliver
 
         format.html{redirect_to pictures_path , notice: '登録に成功しました。' }
       else
@@ -76,8 +80,16 @@ class PicturesController < ApplicationController
 
     respond_to do |format|
 
+      #_oldには更新前の値を保持させたいので、
+      #「dup」をつけて値を渡すことで「@picture」との連動を切断する（別のインスタンスを作成する）
+      picture_old = @picture.dup
+
+          binding.pry
       if @picture.update(picture_params)==true
-        binding.pry
+
+        #投稿編集した旨のメールを送る
+        PostedMailer.posted_mail_edit(@picture,picture_old).deliver
+
         format.html{redirect_to pictures_path , notice: '更新に成功しました。' }
       else
         format.html{redirect_to picture_path(@picture.id) , notice: '更新に失敗しました。' }
@@ -92,6 +104,9 @@ class PicturesController < ApplicationController
     @picture.destroy
     respond_to do |format|
       format.html { redirect_to pictures_path, notice: '投稿を削除しました。' }
+
+      #投稿削除した旨のメールを送る
+      PostedMailer.posted_mail_delete(@picture).deliver
     end
   end
 
