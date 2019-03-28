@@ -93,7 +93,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   #heroでのメール送信用に追記
-  config.action_mailer.default_url_options = { host: 'hidden-forest-97600' }
+  config.action_mailer.default_url_options = { host: 'salty-cliffs-88586' }
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
     user_name: ENV['SENDGRID_USERNAME'],
