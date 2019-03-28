@@ -11,7 +11,7 @@ class PostedMailer < ApplicationMailer
 
     @picture = picture
     @picture_old = picture_old
-mail to: "wkym_4a@icloud.com", subject: "お問い合わせの  確認メール"
+    mail to: "wkym_4a@icloud.com", subject: "お問い合わせの  確認メール"
     #mail to: @picture.user.email , subject:"投稿編集の確認メール"
   end
 
