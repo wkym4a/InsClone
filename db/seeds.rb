@@ -14,5 +14,7 @@
                password: password,
                password_confirmation: password,
                )
-               puts n.to_s
+
+  #状況確認用に「puts」をつけてみた
+  puts n.to_s
 end
