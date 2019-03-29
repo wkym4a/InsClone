@@ -21,10 +21,10 @@
 </p>
 
 <p>
-  <strong>写真:</strong>
+  <strong>写真</strong>
 
   <% if @user.photo && @user.photo.url %>
-    <div class="box_picter_photo">
+    <div class="box_user_photo_show">
     <%= image_tag(@user.photo.url ,class: "box_photo_image_content")%>
     </div>
   <%  else %>
@@ -37,10 +37,6 @@
   <%= @user.pass_hint %>
 </p>
 
-<%= link_to "編集する", @user ,href: edit_user_path(@user.id) ,method: :get,class: "btn btn-default",disabled:false %>
+<%= link_to "編集する", @user ,href: edit_user_path(@user.id) ,method: :get,class: "btn btn-default btn_main_3",disabled:false %>
 
-<%= link_to "パスワードを変更する", @user ,href: edit_password_user_path(@user.id) ,method: :get,class: "btn btn-default",disabled:false %>
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to "パスワードを変更する", @user ,href: edit_password_user_path(@user.id) ,method: :get,class: "btn btn-default btn_main_1",disabled:false %>

@@ -1,0 +1,52 @@
+.textarea_picture_content{
+  width: 400px;
+  height: 100px;
+}
+input.chk_picture_delimage{
+  margin-top:43px;
+  margin-left: 70px;
+}
+p.chk_picture_delimage_label{
+  margin-top:-8px;
+  margin-left: 90px;
+}
+
+/*登録画面、行幅調整用のダミー業*/
+.line_info_picture_form{
+  width: 0;
+}
+.box_picture_index{
+  width: 96%;
+  height: 600px;
+  border: solid;
+  background-color: 	#F5DEB3;
+
+  overflow: auto;
+  margin: 2%;
+}
+.box_picture_index_content{
+  margin-left: 4px;
+  margin-right: 4px;
+}
+div.boxline_picture_index{
+  margin-left: 4px;
+  height: 30px;
+}
+.table_picture_index{
+  width: 100%;
+}
+.index_box_line{
+  border: solid;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.boxarea_picture_index{
+  height: 100px;
+}
+.boxarea_picture_index_content{
+    width: 100%;
+    height: 100%;
+}
+.space_picture_index{
+  width: 20px;
+}

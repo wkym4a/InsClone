@@ -1,8 +1,15 @@
 class PicturesController < ApplicationController
+  before_action :chk_authorioty_no_id, only: [:new, :confirm ,:create]
+  before_action :chk_authorioty_with_id, only: [:edit, :edit_confirm ,:update, :destroy]
+
   before_action :set_picture, only: [:show, :edit, :edit_confirm ,:update, :destroy]
 
   def index
     @pictures = Picture.all.order(id: "DESC")
+  end
+  def user_index
+    @user = User.find(params[:id])
+    @pictures = User.find(params[:id]).favorite_pictures.order(id: "DESC")
   end
 
   def show
@@ -131,6 +138,20 @@ class PicturesController < ApplicationController
       @picture.image_cache = picture_params[:image_cache]
     end
 
+  end
+
+  #処理前の権限チェック
+  #ログインしているかどうかだけチェック……新規登録（およびその確認）画面、新規登録処理
+  def chk_authorioty_no_id
+    if have_authorioty? ==false
+      redirect_to no_authority_path
+    end
+  end
+  #変更対象投稿の作成ユーザーと同じかどうかもチェック……更新（およびその確認）画面、更新，削除登録処理
+  def chk_authorioty_with_id
+    if have_authorioty?(Picture.find(params[:id]).user_id) ==false
+      redirect_to no_authority_path
+    end
   end
 
 end

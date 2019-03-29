@@ -13,17 +13,17 @@
 
 <%= form_with(model: @user, local: true) do |form| %>
 
-  <div class="field">
-    <%= form.label "名前" %>
-    <%= form.text_field :name, id: :user_name %>
+  <div class="line_info">
+    <%= form.label "名前",class: "line_content_1" %>
+    <%= form.text_field :name, id: :user_name,class: "input_user_info line_content_2"%>
   </div>
 
-  <div class="field">
-    <%= form.label "メールアドレス" %>
-    <%= form.email_field :email, id: :user_email %>
+  <div class="line_info">
+    <%= form.label "メールアドレス",class: "line_content_1" %>
+    <%= form.email_field :email, id: :user_email,class: "input_user_info line_content_2"%>
   </div>
 
-  <div class="field">
+  <div class="line_info">
   <%= form.label "写真" ,class: "line_content_1" %>
   <%= form.file_field :photo, id: "select_photo" ,class: "line_content_2" %>
   </div>
@@ -35,31 +35,29 @@
   <p>※更新時に画像が選択されていない場合、更新前の画像が維持されます。</p>
   <p>登録してある写真を削除する場合は↓の「削除する」を☑してください。</p>
 
-  <%= form.check_box :remove_photo ,class: "chk_picture_dephoto line_content_1" %>
-  <p class="chk_picture_delphoto_label">写真を削除する</p>
+  <%= form.check_box :remove_photo ,class: "chk_photo_delimage" %>
+  <p class="chk_photo_delimage_label">写真を削除する</p>
   </div>
   <!--↑ 「画像を削除する」かどうかの選択 -->
 
   <!--↓ 「画像」の表示……登録処理時は、ここの値は使用しない -->
   <% if form.object.photo && form.object.photo.url %>
-    <div class="box_picter_photo">
+    <div class="box_user_photo">
     <%= image_tag(form.object.photo.url ,class: "box_photo_image_content")%>
     </div>
   <%  else %>
     <div class="line_info">
-      <%= form.label "写真はまだ登録されていません。" ,class: "line_content_1" %>
+      <%= form.label "写真はまだ登録されていません。" ,class: "input_user_info line_content_2" %>
     </div>
   <%  end %>
   <!--↑ 「画像」の表示……登録処理時は、ここの値は使用しない -->
 
-  <div class="パスワードのヒント">
-    <%= form.label "パスワードのヒント" %>
-    <%= form.text_field :pass_hint, id: :user_pass_hint %>
+  <div class="line_info">
+    <%= form.label "パスワードのヒント",class: "line_content_1" %>
+    <%= form.text_field :pass_hint, id: :user_pass_hint ,class: "input_user_info line_content_2"%>
   </div>
 
   <div class="actions">
-    <%= form.submit  "情報を変更します。" %>
+    <%= form.submit  "情報を変更します。" ,class:"btn btn-default btn_main_1"%>
   </div>
 <% end %>
-
-  <%= @user.password_digest %>

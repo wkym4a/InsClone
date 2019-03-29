@@ -1,0 +1,83 @@
+
+<div class="">
+  <%= link_to '新たに投稿する', new_picture_path ,class: "btn btn-default" if have_authorioty? == true %>
+</div>
+
+
+<div class="box_picture_index">
+  <table class="table_picture_index" >
+    <% @pictures.each do |picture| %>
+      <tr class="row box_picture_index_content">
+        <td class="col-xs-12">
+          <div class="row row-eq-height index_box_line">
+
+            <!--投稿者名-->
+            <div class="col-xs-12 boxline_picture_index">
+              <div class="">
+                <%= label "",picture.user.name.to_s  + "さんの投稿です。"  %>
+                <%= label "","→" %>
+                <%= link_to picture.user.name.to_s, user_index_picture_path(picture.user.id),
+                                      class: '' ,method: :get  %>
+                <%= label "","さんのお気に入りを見てみる。"  %>
+              </div>
+            </div>
+
+
+
+            <!--タイトル-->
+            <div div="col-xs-12 boxline_picture_index">
+              <%= label ""," 　　 題名："  %>
+              <%= label "",picture.title ,class: 'i' %>
+            </div>
+
+            <!--画像-->
+            <div class="col-xs-12 boximage_picture_index">
+              <% if picture.image && picture.image.url %>
+                <%= image_tag(picture.image.url)  %>
+              <% else %>
+                <%= label ""," 　　画像はまだ登録されていません。"  %>
+              <% end %>
+            </div>
+
+            <!--本文-->
+            <div class="col-xs-12 boxarea_picture_index">
+              <%= text_area "","readonly", value: picture.content ,readonly: true ,class: "boxarea_picture_index_content"%>
+            </div>
+
+
+            <!--本文「詳細を表示」「スペース」「お気に入りにする/お気に入りを解除する」-->
+            <div class="col-xs-2">
+              <%= link_to "詳細を表示", picture,href: picture_path(picture.id),method: :get,class: "btn btn-default"  %>
+            </div>
+
+            <div class="col-xs-7">
+            </div>
+
+            <!--お気に入りに登録する　又は　お気に入りを解除する-->
+            <div div="col-xs-3 boxline_picture_index">
+
+              <% if not(picture.favorites.find_by(user_id: current_user.id))  %>
+              <!--表示している投稿を、まだ【お気に入り】にしていない場合→「お気に入り登録」ボタンを表示-->
+                <%= (link_to 'お気に入りにする',favorites_path(picture.id) ,
+                    data: { confirm: '投稿をあなたのお気に入りにします。よろしいですか?' } ,
+                                      class: 'btn btn-default',method: :post
+                    ) if have_authorioty? == true  %>
+              <% else %>
+              <!--すでに【お気に入り】にしている場合→「お気に入り解除」ボタンを表示-->
+                <%= (link_to 'お気に入りから削除する',favorite_path(picture.id),
+                    data: { confirm: '投稿をあなたのお気に入りから削除します。よろしいですか?' } ,
+                                      class: 'btn btn-default',method: :delete
+                    ) if have_authorioty?(picture.user_id) == true %>
+              <% end %>
+
+            </div>
+
+          </div>
+
+        </td>
+
+
+      </tr>
+    <% end %>
+  </table>
+</div>

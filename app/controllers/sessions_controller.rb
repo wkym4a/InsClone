@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
 def new
-
+  @pictures = Picture.all.order(id: "DESC")
 
 end
 

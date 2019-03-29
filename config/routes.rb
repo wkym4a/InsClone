@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   root 'tops#index'
+  get 'tops/no_authority', to: 'tops#no_authority' , as: 'no_authority'
+
 
   resources :pictures do
     collection do
@@ -11,6 +13,7 @@ Rails.application.routes.draw do
     end
     member do
       post :edit_confirm
+      get :user_index
     end
   end
 
@@ -23,4 +26,6 @@ Rails.application.routes.draw do
   end
 
   resources :sessions ,only: [:new ,:create ,:destroy]
+
+  resources :favorites ,only: [:index ,:create ,:destroy]
 end

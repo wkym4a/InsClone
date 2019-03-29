@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
+before_action :chk_authorioty_with_id, only: [:show ,:edit, :edit_password ,
+                                              :update, :update_password]
+
   before_action :set_user, only: [:show, :show_aftercreate, :edit, :edit_password,
-                                  :update,:update_password,  :destroy]
+                                  :update,:update_password]
 
   # GET /users
   # GET /users.json
@@ -58,7 +61,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       @user.attributes=(user_params_password)
-      
+
       if @user.save(context: :have_pass)
       #if @user.update(user_params_password)context: :have_pass)
 
@@ -69,15 +72,6 @@ class UsersController < ApplicationController
     end
 
   end
-
-  # # DELETE /users/1 ユーザー情報は削除しない
-  # # DELETE /users/1.json
-  # def destroy
-  #   @user.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-  #   end
-  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -115,4 +109,14 @@ class UsersController < ApplicationController
       #「パスワード更新」前の画面データ取得→パスワードのみ変更する
       params.require(:user).permit(:password, :password_confirmation)
     end
+
+
+    #処理前の権限チェック
+    #変更対象投稿の作成ユーザーと同じかどうかもチェック……お気に入り削除処理
+    def chk_authorioty_with_id
+      if have_authorioty?(params[:id]) ==false
+        redirect_to no_authority_path
+      end
+    end
+
 end

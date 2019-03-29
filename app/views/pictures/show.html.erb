@@ -27,26 +27,24 @@
   </div>
 
   <div class="line_info">
-    <%= form.label "画像" %>
+    <%= form.label "画像" , class: "label_user_info line_content_1" %>
+  <!-- 確認画面でアップロードした画像を表示させるための記述-->
+
+    <% if @picture.image && @picture.image.url %>
+      </div>
+      <div class="box_picter_image">
+        <%= image_tag(@picture.image.url)  %>
+      </div>
+    <% else %>
+        <%= form.label "…………登録画像無し。" ,class: "label_user_info line_content_1" %>
   </div>
-  <!-- 確認画面でアップロードした画像を表示させるための記述……【画像を削除する】場合は見せない -->
-  <% no_image = true %>
+    <% end %>
 
-  <% if @picture.image && @picture.image.url %>
-
-    <div class="box_picter_image">
-      <%= image_tag(@picture.image.url) %>
-    </div>
-
-  <% else %>
-    <div class="line_info">
-      <%= form.label "…………登録画像無し。" ,class: "label_user_info line_content_1" %>
-    </div>
-  <% end %>
-
-  <%= form.submit "投稿する",class: 'btn btn-default btn_next'%>
+  <%= (form.submit "投稿する",class: 'btn btn-default btn_main_2'
+  ) if have_authorioty?(@picture.user_id) == true  %>
 
 <% end %>
 
-<%= link_to '削除する', @picture, method: :delete,data: { confirm: '本当に削除してよろしいですか?' } ,
-                      class: 'btn btn-default' ,disabled:false %>
+<%= (link_to '削除する', @picture, method: :delete,data: { confirm: '本当に削除してよろしいですか?' } ,
+                      class: 'btn btn-default btn_main_1' ,disabled:false
+    ) if have_authorioty?(@picture.user_id) == true  %>
