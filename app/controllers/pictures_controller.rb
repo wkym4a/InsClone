@@ -1,4 +1,5 @@
 class PicturesController < ApplicationController
+  #事前の権限チェック
   before_action :chk_authorioty_no_id, only: [:new, :confirm ,:create]
   before_action :chk_authorioty_with_id, only: [:edit, :edit_confirm ,:update, :destroy]
 
@@ -18,23 +19,19 @@ class PicturesController < ApplicationController
   #「_form」をもとにした画面を開く
   #新規画面表示
   def new
-
     if  params[:back]
       @picture=Picture.new(picture_params)
     else
       @picture=Picture.new
     end
-
   end
 
   #更新画面
   def edit
-
     if  params[:back]
         #「バリデーションに引っかかって戻る」場合、それまでの画面情報を変数に格納
         reset_picture
     end
-
   end
 
   #「_confirm_form」をもとにした画面を開く
@@ -46,7 +43,6 @@ class PicturesController < ApplicationController
     if @picture.invalid?
       params[:validate_err]=:on
       render 'new'
-
     end
   end
 
@@ -59,7 +55,6 @@ class PicturesController < ApplicationController
       params[:validate_err]=:on
       render 'new'
     end
-
   end
 
   #データ登録処理
@@ -70,10 +65,8 @@ class PicturesController < ApplicationController
 
     respond_to do |format|
       if @picture.save
-
         #新規投稿した旨のメールを送る
         PostedMailer.posted_mail_new(@picture).deliver
-
         format.html{redirect_to pictures_path , notice: '登録に成功しました。' }
       else
         format.html{redirect_to new_picture_path , notice: '登録に失敗しました。' }
@@ -91,17 +84,13 @@ class PicturesController < ApplicationController
       picture_old = @picture.dup
 
       if @picture.update(picture_params)==true
-
         #投稿編集した旨のメールを送る
         PostedMailer.posted_mail_edit(@picture,picture_old).deliver
-
         format.html{redirect_to pictures_path , notice: '更新に成功しました。' }
       else
         format.html{redirect_to picture_path(@picture.id) , notice: '更新に失敗しました。' }
       end
-
     end
-
   end
 
   #削除処理
@@ -123,7 +112,6 @@ class PicturesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def picture_params
-
     params.require(:picture).permit(:title, :content, :image, :image_cache,:remove_image)
   end
 
@@ -133,11 +121,9 @@ class PicturesController < ApplicationController
     @picture.content= picture_params[:content]
 
     if not (picture_params[:image]==nil )
-
       @picture.image= picture_params[:image]
       @picture.image_cache = picture_params[:image_cache]
     end
-
   end
 
   #処理前の権限チェック
@@ -153,5 +139,4 @@ class PicturesController < ApplicationController
       redirect_to no_authority_path
     end
   end
-
 end

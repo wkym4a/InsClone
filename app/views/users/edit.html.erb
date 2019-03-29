@@ -10,7 +10,6 @@
 <% end %>
 <!--↑タイトル表示枠-->
 
-
 <%= form_with(model: @user, local: true) do |form| %>
 
   <div class="line_info">
@@ -34,7 +33,6 @@
   <!--↓ 「画像を削除する」かどうかの選択 -->
   <p>※更新時に画像が選択されていない場合、更新前の画像が維持されます。</p>
   <p>登録してある写真を削除する場合は↓の「削除する」を☑してください。</p>
-
   <%= form.check_box :remove_photo ,class: "chk_photo_delimage" %>
   <p class="chk_photo_delimage_label">写真を削除する</p>
   </div>

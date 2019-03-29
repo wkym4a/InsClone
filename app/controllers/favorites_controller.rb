@@ -1,4 +1,5 @@
 class FavoritesController < ApplicationController
+  #事前の権限チェック
   before_action :chk_authorioty_no_id, only: [:create]
   before_action :chk_authorioty_with_id, only: [:destroy]
 

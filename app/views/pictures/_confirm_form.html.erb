@@ -7,7 +7,6 @@
 <%= form_with(model: picture, local: true,
               url:get_next_url_picture(picture.id)[0],
               method:get_next_url_picture(picture.id)[1]) do |form| %>
-
   <div class="line_info">
     <%= form.label "題名" ,class: "line_content_1" %>
     <%= label "", picture.title ,class: "line_content_2" %>
@@ -19,10 +18,10 @@
         class: "line_content_2 textarea_picture_content show_textarea" %>
   </div>
 
-
   <div class="line_info">
     <%= form.label "画像" %>
   </div>
+
   <!-- 確認画面でアップロードした画像を表示させるための記述……【画像を削除する】場合は見せない -->
   <% no_image = true %>
   <% if not(params[:picture][:remove_image]=="1") %>
@@ -52,9 +51,7 @@
     <%= form.hidden_field :remove_image %>
   <% end %>
   </p>
-
   <%= form.submit "投稿する",class: 'btn btn-default btn_main_2' %>
-
 <% end %>
 
 <%= form_with(model:picture,local: true,
@@ -66,5 +63,4 @@
   <%= form.hidden_field :image_cache %>
 
   <%= form.submit "戻る", name: "back",class: 'btn btn-default btn_main_1'  %>
-
 <% end %>

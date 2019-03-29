@@ -1,8 +1,6 @@
-
 <div class="">
   <%= link_to '新たに投稿する', new_picture_path ,class: "btn btn-default" if have_authorioty? == true %>
 </div>
-
 
 <div class="box_picture_index">
   <table class="table_picture_index" >
@@ -21,8 +19,6 @@
                 <%= label "","さんのお気に入りを見てみる。"  %>
               </div>
             </div>
-
-
 
             <!--タイトル-->
             <div div="col-xs-12 boxline_picture_index">
@@ -43,7 +39,6 @@
             <div class="col-xs-12 boxarea_picture_index">
               <%= text_area "","readonly", value: picture.content ,readonly: true ,class: "boxarea_picture_index_content"%>
             </div>
-
 
             <!--本文「詳細を表示」「スペース」「お気に入りにする/お気に入りを解除する」-->
             <div class="col-xs-2">
@@ -69,14 +64,9 @@
                                       class: 'btn btn-default',method: :delete
                     ) if have_authorioty?(picture.user_id) == true %>
               <% end %>
-
             </div>
-
           </div>
-
         </td>
-
-
       </tr>
     <% end %>
   </table>

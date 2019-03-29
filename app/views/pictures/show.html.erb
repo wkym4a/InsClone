@@ -42,7 +42,6 @@
 
   <%= (form.submit "投稿する",class: 'btn btn-default btn_main_2'
   ) if have_authorioty?(@picture.user_id) == true  %>
-
 <% end %>
 
 <%= (link_to '削除する', @picture, method: :delete,data: { confirm: '本当に削除してよろしいですか?' } ,
