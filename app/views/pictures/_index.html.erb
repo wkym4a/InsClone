@@ -50,20 +50,21 @@
 
             <!--お気に入りに登録する　又は　お気に入りを解除する-->
             <div div="col-xs-3 boxline_picture_index">
-
-              <% if not(picture.favorites.find_by(user_id: current_user.id))  %>
-              <!--表示している投稿を、まだ【お気に入り】にしていない場合→「お気に入り登録」ボタンを表示-->
-                <%= (link_to 'お気に入りにする',favorites_path(picture.id) ,
-                    data: { confirm: '投稿をあなたのお気に入りにします。よろしいですか?' } ,
-                                      class: 'btn btn-default',method: :post
-                    ) if have_authorioty? == true  %>
-              <% else %>
-              <!--すでに【お気に入り】にしている場合→「お気に入り解除」ボタンを表示-->
-                <%= (link_to 'お気に入りから削除する',favorite_path(picture.id),
-                    data: { confirm: '投稿をあなたのお気に入りから削除します。よろしいですか?' } ,
-                                      class: 'btn btn-default',method: :delete
-                    ) if have_authorioty?(picture.user_id) == true %>
-              <% end %>
+                <% if logged_in? == true  %>
+                  <% if not(picture.favorites.find_by(user_id: current_user.id))  %>
+                  <!--表示している投稿を、まだ【お気に入り】にしていない場合→「お気に入り登録」ボタンを表示-->
+                    <%= (link_to 'お気に入りにする',favorites_path(picture.id) ,
+                        data: { confirm: '投稿をあなたのお気に入りにします。よろしいですか?' } ,
+                                          class: 'btn btn-default',method: :post
+                        ) if have_authorioty? == true  %>
+                  <% else %>
+                  <!--すでに【お気に入り】にしている場合→「お気に入り解除」ボタンを表示-->
+                    <%= (link_to 'お気に入りから削除する',favorite_path(picture.id),
+                        data: { confirm: '投稿をあなたのお気に入りから削除します。よろしいですか?' } ,
+                                          class: 'btn btn-default',method: :delete
+                        ) if have_authorioty?(picture.user_id) == true %>
+                  <% end %>
+                <% end %>
             </div>
           </div>
         </td>

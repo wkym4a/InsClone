@@ -53,7 +53,7 @@ class PicturesController < ApplicationController
 
     if @picture.invalid?
       params[:validate_err]=:on
-      render 'new'
+      render 'edit'
     end
   end
 

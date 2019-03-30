@@ -59,6 +59,7 @@
 
  .main_content{
    padding-bottom: 120px;
+   min-height: 600px;
  }
   /*↑基本情報、大枠*/
 
