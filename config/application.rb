@@ -22,6 +22,23 @@ module InsClone
     config.generators do |g|
       g.assets false
       g.helper false
+
+
+      #↓テキスト：Rspec1【テスト駆動開発とRspecの初期設定について】に基づき追加
+      #→無駄なファイルが作成されないようにするため
+      #……モデルのテストだけを対象にしているので、
+      #コントローラを対象としたテストファイルなどは作成されないようにする。
+      g.test_framework :rspec,
+        fixtures: true,
+        view_specs: false,
+        helper_specs: false,
+        routing_specs: false,
+        controller_specs: false,
+        request_specs: false
+      g.fixture_replacement :factory_bot, dir: "spec/factories"
+      #↑テキスト：Rspec1【テスト駆動開発とRspecの初期設定について】に基づき追加
+      #→無駄なファイルが作成されないようにするため
+
     end
 
   end

@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190329011934) do
+ActiveRecord::Schema.define(version: 20190401050140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "blogs", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "blog_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_id"], name: "index_comments_on_blog_id"
+  end
 
   create_table "favorites", force: :cascade do |t|
     t.bigint "user_id"
@@ -22,6 +37,15 @@ ActiveRecord::Schema.define(version: 20190329011934) do
     t.datetime "updated_at", null: false
     t.index ["picture_id"], name: "index_favorites_on_picture_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "title"
+    t.integer "production_year"
+    t.integer "running_time"
+    t.text "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -45,6 +69,7 @@ ActiveRecord::Schema.define(version: 20190329011934) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "comments", "blogs"
   add_foreign_key "favorites", "pictures"
   add_foreign_key "favorites", "users"
   add_foreign_key "pictures", "users"

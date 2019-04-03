@@ -8,6 +8,8 @@ module ApplicationHelper
         return "ユーザー"
       when "Picture"
         return "投稿"
+      when "Blog"
+        return "ブログ"
       else
         return "「get_tablename_by_model」で想定されていない種類のテーブル"
     end

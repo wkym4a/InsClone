@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
+  root 'tops#index'
 
   #開発環境ではletter_openerでメール送信を確認する。
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
-  root 'tops#index'
   get 'tops/no_authority', to: 'tops#no_authority' , as: 'no_authority'
-
 
   resources :pictures do
     collection do
@@ -23,6 +22,10 @@ Rails.application.routes.draw do
       get :edit_password
       patch :update_password
     end
+  end
+
+  resources :blogs do
+    resources :comments
   end
 
   resources :sessions ,only: [:new ,:create ,:destroy]

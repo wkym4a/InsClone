@@ -38,12 +38,22 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-byebug'
+
+  #テスト用に追加（テキスト：Rspec1【テスト駆動開発とRspecの初期設定について】）
+  gem 'spring'
+  gem "rspec-rails"
+  gem 'spring-commands-rspec'
+  gem "factory_bot_rails"
+  gem 'faker'
+  gem "database_cleaner"
+  gem "launchy"
+  gem 'selenium-webdriver'
 end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'spring'
+  #gem 'spring' →　「:development, :test」に移動
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   #開発環境でのメール受信検証用に追加
